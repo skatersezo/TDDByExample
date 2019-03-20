@@ -2,9 +2,8 @@
 
 namespace TDDByExample
 {
-    class Dollar
+    class Dollar : Money
     {
-        private int amount { get; set; }
 
         public Dollar(int amount)
         {

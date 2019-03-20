@@ -1,6 +1,6 @@
 ﻿namespace TDDByExample
 {
-    class Franc
+    class Franc : Money
     {
         private int amount { get; set; }
 
