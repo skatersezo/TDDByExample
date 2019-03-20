@@ -16,26 +16,26 @@ namespace TDDByExample
     class Tests
     {
         [Test]
-        public void Test_Multiplication()
+        public void Test_multiplication()
         {
             Dollar five = new Dollar(5);
-            five.times(2);
-            Assert.That(10, Is.EqualTo(five.amount));
-        }
-    }
-
-    class Dollar
-    {
-        public int amount { get; set; }
-
-        public Dollar(int amount)
-        {
-            this.amount = amount;
+            Assert.That(new Dollar(10), Is.EqualTo(five.times(2)));
+            Assert.That(new Dollar(15), Is.EqualTo(five.times(3)));
         }
 
-        public void times(int times)
+        [Test]
+        public void Test_equality()
         {
-            this.amount *= times;
+            Assert.That(new Dollar(5), Is.EqualTo(new Dollar(5)));
+            Assert.That(new Dollar(5), Is.Not.EqualTo(new Dollar(6)));
+        }
+
+        [Test]
+        public void Test_franc_multiplication()
+        {
+            Dollar five = new Dollar(5);
+            Assert.That(new Dollar(10), Is.EqualTo(five.times(2)));
+            Assert.That(new Dollar(15), Is.EqualTo(five.times(3)));
         }
     }
 }
