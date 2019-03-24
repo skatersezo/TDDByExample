@@ -4,21 +4,24 @@ namespace TDDByExample
 {
     class Dollar : Money
     {
+        // Base properties
+        // int Amount;
+        // string Currency;
 
-        public Dollar(int amount)
+        public Dollar(int amount, string currency)
         {
-            this.amount = amount;
+            Amount = amount;
+            Currency = currency;
         }
 
-        public Dollar times(int multiplier)
+        public override string GetCurrency()
         {
-            return new Dollar(this.amount * multiplier);
+            return Currency;
         }
 
-        public override bool Equals(object obj)
+        public override Money Times(int multiplier)
         {
-            Dollar dollar = (Dollar)obj;
-            return this.amount == dollar.amount;
+            return Money.Dollar(Amount * multiplier);
         }
     }
 }

@@ -2,19 +2,25 @@
 {
     class Franc : Money
     {
-        private int amount { get; set; }
+        // Base properties
+        // int Amount
+        // string Currency
 
-        public Franc(int amount) => this.amount = amount;
-
-        public Franc times(int multiplier)
+        public Franc(int amount, string currency)
         {
-            return new Franc(this.amount * multiplier);
+            Amount = amount;
+            Currency = currency;
         }
 
-        public override bool Equals(object obj)
+        public override string GetCurrency()
         {
-            Franc dollar = (Franc)obj;
-            return this.amount == dollar.amount;
+            return Currency;
         }
+
+        public override Money Times(int multiplier)
+        {
+            return Money.Franc(Amount * multiplier);
+        }
+
     }
 }

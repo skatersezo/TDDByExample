@@ -1,18 +1,32 @@
-﻿/**
- * Instrument   Shares  Price   Total
- * IBM          1000    25USD   25000USD
- * GE           400     150CHF  40000CHF
- *                              65000USD
- * 
- * From         To      Rate
- * CHF          USD     1.5
- * 
- */
+﻿
+using System;
 
 namespace TDDByExample
 {
-    class Money
+    abstract class Money
     {
-        protected int amount { get; set; }
+        protected int Amount { get; set; }
+        protected string Currency;
+
+        public static Dollar Dollar(int amount)
+        {
+            return new Dollar(amount, "USD");
+        }
+
+        public static Franc Franc(int amount)
+        {
+            return new Franc(amount, "CHF");
+        }
+
+        public abstract Money Times(int multiplier);
+
+        public abstract string GetCurrency();
+
+        public override bool Equals(object obj)
+        {
+            Money money = (Money)obj;
+            return Amount == money.Amount
+                && GetType().Name.Equals(money.GetType().Name);
+        }
     }
 }

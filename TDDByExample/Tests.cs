@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 
 /**
  * Instrument   Shares  Price   Total
@@ -18,24 +19,35 @@ namespace TDDByExample
         [Test]
         public void Test_multiplication()
         {
-            Dollar five = new Dollar(5);
-            Assert.That(new Dollar(10), Is.EqualTo(five.times(2)));
-            Assert.That(new Dollar(15), Is.EqualTo(five.times(3)));
+            Money fiveDollars = Money.Dollar(5);
+            Assert.That(Money.Dollar(10), Is.EqualTo(fiveDollars.Times(2)));
+            Assert.That(Money.Dollar(15), Is.EqualTo(fiveDollars.Times(3)));
         }
 
         [Test]
         public void Test_equality()
         {
-            Assert.That(new Dollar(5), Is.EqualTo(new Dollar(5)));
-            Assert.That(new Dollar(5), Is.Not.EqualTo(new Dollar(6)));
+            Assert.That(Money.Dollar(5), Is.EqualTo(Money.Dollar(5)));
+            Assert.That(Money.Dollar(5), Is.Not.EqualTo(Money.Dollar(6)));
+            Assert.That(Money.Franc(5), Is.EqualTo(Money.Franc(5)));
+            Assert.That(Money.Franc(5), Is.Not.EqualTo(Money.Franc(6)));
+            Assert.That(Money.Franc(5), Is.Not.EqualTo(Money.Dollar(5)));
         }
 
         [Test]
         public void Test_franc_multiplication()
         {
-            Dollar five = new Dollar(5);
-            Assert.That(new Dollar(10), Is.EqualTo(five.times(2)));
-            Assert.That(new Dollar(15), Is.EqualTo(five.times(3)));
+            Money fiveFrancs = Money.Franc(5);
+            Assert.That(Money.Franc(10), Is.EqualTo(fiveFrancs.Times(2)));
+            Assert.That(Money.Franc(15), Is.EqualTo(fiveFrancs.Times(3)));
+        }
+
+        [Test]
+        public void Test_currency()
+        {
+            Assert.That("USD", Is.EqualTo(Money.Dollar(1).GetCurrency()));
+            Assert.That("CHF", Is.EqualTo(Money.Franc(1).GetCurrency()));
+
         }
     }
 }
