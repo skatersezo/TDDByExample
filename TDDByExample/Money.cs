@@ -3,30 +3,48 @@ using System;
 
 namespace TDDByExample
 {
-    abstract class Money
+    class Money : Xpression
     {
         protected int Amount { get; set; }
-        protected string Currency;
+        public string Currency { get; set; }
 
-        public static Dollar Dollar(int amount)
+        public Money(int amount, string currency)
         {
-            return new Dollar(amount, "USD");
+            Amount = amount;
+            Currency = currency;
         }
 
-        public static Franc Franc(int amount)
+        public static Money Dollar(int amount)
         {
-            return new Franc(amount, "CHF");
+            return new Money(amount, "USD");
         }
 
-        public abstract Money Times(int multiplier);
+        public static Money Franc(int amount)
+        {
+            return new Money(amount, "CHF");
+        }
 
-        public abstract string GetCurrency();
+        public Money Times(int multiplier)
+        {
+            return new Money(Amount * multiplier, Currency);
+        }
 
         public override bool Equals(object obj)
         {
             Money money = (Money)obj;
             return Amount == money.Amount
-                && GetType().Name.Equals(money.GetType().Name);
+                && Currency.Equals(money.Currency);
         }
+
+        public Xpression Plus(Money addend)
+        {
+            return new Money(Amount + addend.Amount, Currency);
+        }
+
+        public override string ToString()
+        {
+            return $"{Amount} {Currency}";
+        }
+        
     }
 }
