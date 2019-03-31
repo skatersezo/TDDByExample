@@ -4,11 +4,23 @@ using System.Text;
 
 namespace TDDByExample
 {
-    class Bank
+    public class Bank
     {
         public Money Reduce(Xpression source, string to)
         {
-            return Money.Dollar(10);
+            return source.Reduce(this, to);
+        }
+
+        public int Rate(string from, string to)
+        {
+            return (from.Equals("CHF") && to.Equals("USD"))
+                ? 2
+                : 1;
+        }
+
+        public void AddRate(string chf, string usd, int i)
+        {
+            throw new NotImplementedException();
         }
     }
 }

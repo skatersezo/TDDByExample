@@ -59,7 +59,56 @@ namespace TDDByExample
             Money reduced = bank.Reduce(sum, "USD");
             Assert.That(Money.Dollar(10), Is.EqualTo(reduced));
         }
+
+        [Test]
+        public void TestPlusReturnSum()
+        {
+            Money five = Money.Dollar(5);
+            Xpression result = five.Plus(five);
+            Sum sum = (Sum)result;
+            Assert.That(five, Is.EqualTo(sum.Augend));
+            Assert.That(five, Is.EqualTo(sum.Addend));
+        }
+
+        [Test]
+        public void TestReduceSum()
+        {
+            Xpression sum = new Sum(Money.Dollar(3), Money.Dollar(4));
+            Bank bank = new Bank();
+            Money result = bank.Reduce(sum, "USD");
+            Assert.That(Money.Dollar(7), Is.EqualTo(result));
+        }
+
+        [Test]
+        public void TestReduceMoney()
+        {
+            Bank bank = new Bank();
+            Money result = bank.Reduce(Money.Dollar(1), "USD");
+            Assert.That(Money.Dollar(1), Is.EqualTo(result));
+        }
+
+        [Test]
+        public void ReduceMoneyDifferentCurrency()
+        {
+            Bank bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
+            Money result = bank.Reduce(Money.Franc(2), "USD");
+            Assert.That(Money.Dollar(1), Is.EqualTo(result));
+        }
         
     }
+
+    class Pair
+    {
+        private string _from;
+        private string _to;
+
+        public Pair(string from, string to)
+        {
+            _from = from;
+            _to = to;
+        }
+    }
+
     
 }

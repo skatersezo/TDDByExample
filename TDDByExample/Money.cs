@@ -3,9 +3,9 @@ using System;
 
 namespace TDDByExample
 {
-    class Money : Xpression
+    public class Money : Xpression
     {
-        protected int Amount { get; set; }
+        public int Amount { get; set; }
         public string Currency { get; set; }
 
         public Money(int amount, string currency)
@@ -38,13 +38,26 @@ namespace TDDByExample
 
         public Xpression Plus(Money addend)
         {
-            return new Money(Amount + addend.Amount, Currency);
+            return new Sum(this, addend);
         }
 
         public override string ToString()
         {
             return $"{Amount} {Currency}";
         }
-        
+
+        public Money Reduce(Bank bank, string to)
+        {
+            int rate = bank.Rate(Currency, to);
+            return new Money(rate, to);
+        }
+
+        public Money Reduce(string to)
+        {
+            int rate = (Currency.Equals("CHF") && to.Equals("USD"))
+                ? 2
+                : 1;
+            return new Money(Amount / rate, to);
+        }
     }
 }

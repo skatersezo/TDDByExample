@@ -4,7 +4,8 @@ using System.Text;
 
 namespace TDDByExample
 {
-    interface Xpression
+    public interface Xpression
     {
+        Money Reduce(Bank bank, String to);
     }
 }
